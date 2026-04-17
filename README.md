@@ -1,2 +1,2 @@
 # Maxiim
-Duet50
+UAV50
