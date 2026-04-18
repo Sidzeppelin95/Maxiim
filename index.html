@@ -5,7 +5,147 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MaxiimTech Aerospace</title>
 
-<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* GLOBAL */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #03050a;
+  color: white;
+  scroll-behavior: smooth;
+}
+
+/* NAVBAR */
+header {
+  position: fixed;
+  width: 100%;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+}
+
+.logo {
+  font-family: 'Orbitron';
+  color: #4db3ff;
+}
+
+nav a {
+  margin-left: 25px;
+  text-decoration: none;
+  color: #aaa;
+}
+
+nav a:hover {
+  color: white;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), #03050a),
+              url('images/uav-bg.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-family: 'Orbitron';
+}
+
+.hero p {
+  color: #bbb;
+}
+
+.btn {
+  padding: 12px 28px;
+  background: linear-gradient(45deg,#4db3ff,#0077ff);
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* SECTIONS */
+.section {
+  padding: 120px 60px;
+  text-align: center;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* CARD */
+.card {
+  padding: 30px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  transition: 0.4s;
+}
+
+.card:hover {
+  transform: translateY(-12px);
+}
+
+/* METRICS */
+.metrics {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.metric {
+  font-size: 28px;
+  margin: 20px;
+}
+
+/* PRODUCT */
+.product {
+  background: rgba(255,255,255,0.05);
+  padding: 50px;
+  border-radius: 20px;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(45deg,#0077ff,#4db3ff);
+  padding: 80px;
+  border-radius: 20px;
+}
+
+/* FOOTER */
+footer {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+}
+
+/* ANIMATION */
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+</style>
 </head>
 
 <body>
@@ -13,99 +153,100 @@
 <header>
   <div class="logo">MAXIIMTECH</div>
   <nav>
-    <a href="#home">Home</a>
     <a href="#about">About</a>
-    <a href="#mission">Mission</a>
-    <a href="#products">Products</a>
-    <a href="#impact">Impact</a>
+    <a href="#technology">Technology</a>
+    <a href="#product">Product</a>
+    <a href="#traction">Traction</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
 <!-- HERO -->
-<section id="home" class="hero">
-  <div class="overlay">
-    <h1>Innovating Aerospace & UAV Systems</h1>
-    <p>
-      MaxiimTech builds advanced UAV platforms integrating AI,
-      autonomy, and aerospace engineering for next-gen applications.
-    </p>
-    <a href="#products" class="btn">Explore Products</a>
+<section class="hero">
+  <div>
+    <h1>Autonomous Aerospace Systems</h1>
+    <p>AI-driven UAV Platforms for Defense & Logistics</p>
+    <button class="btn">Explore Platform</button>
   </div>
 </section>
 
 <!-- ABOUT -->
-<section id="about" class="section">
-  <h2>About Us</h2>
+<section id="about" class="section fade">
+  <h2>About MaxiimTech</h2>
   <p>
-    MaxiimTech is an aerospace innovation company focused on developing
-    UAV systems for defense, logistics, surveillance, and industrial use.
+    MaxiimTech is building next-generation UAV systems combining AI,
+    autonomy and advanced aerospace engineering for mission-critical applications.
   </p>
 </section>
 
-<!-- MISSION -->
-<section id="mission" class="section dark">
-  <h2>Our Mission</h2>
+<!-- TECHNOLOGY -->
+<section id="technology" class="section fade">
+  <h2>Core Technology</h2>
   <div class="grid">
-    <div>
-      <h3>Innovation</h3>
-      <p>Building cutting-edge UAV technology.</p>
-    </div>
-    <div>
-      <h3>Autonomy</h3>
-      <p>AI-powered flight and navigation systems.</p>
-    </div>
-    <div>
-      <h3>Impact</h3>
-      <p>Transforming industries with aerial intelligence.</p>
-    </div>
+    <div class="card">Autonomous Flight Systems</div>
+    <div class="card">AI Navigation</div>
+    <div class="card">Swarm Intelligence</div>
+    <div class="card">Long Endurance Platforms</div>
   </div>
 </section>
 
-<!-- PRODUCTS -->
-<section id="products" class="section">
-  <h2>Our Products</h2>
-
+<!-- PRODUCT -->
+<section id="product" class="section fade">
+  <h2>MX-1 Tactical UAV</h2>
   <div class="product">
-    <h3>MX-1 Tactical UAV</h3>
-    <p>
-      High endurance UAV for surveillance, mapping and defense operations.
-    </p>
-
+    <p>High-endurance UAV designed for surveillance and logistics missions.</p>
     <ul>
       <li>Endurance: 8+ hours</li>
       <li>Range: 150 km</li>
       <li>Payload: 10 kg</li>
-      <li>AI Navigation</li>
     </ul>
   </div>
-
 </section>
 
-<!-- IMPACT -->
-<section id="impact" class="section dark">
-  <h2>Our Capabilities</h2>
+<!-- TRACTION -->
+<section id="traction" class="section fade">
+  <h2>Traction</h2>
+  <div class="metrics">
+    <div class="metric">4+ Countries</div>
+    <div class="metric">10kg Payload UAV</div>
+    <div class="metric">AI Flight Systems</div>
+  </div>
+</section>
 
-  <div class="grid">
-    <div>Drone Logistics</div>
-    <div>Defense UAV Systems</div>
-    <div>AI Flight Systems</div>
-    <div>Industrial Automation</div>
+<!-- CTA -->
+<section class="section fade">
+  <div class="cta">
+    <h2>Partner With MaxiimTech</h2>
+    <p>Building the future of autonomous aerospace systems.</p>
+    <button class="btn">Get in Touch</button>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section">
-  <h2>Contact Us</h2>
-  <p>Email: info@maxiimtech.com</p>
-  <p>Phone: +91-XXXXXXXXXX</p>
+<section id="contact" class="section fade">
+  <h2>Contact</h2>
+  <p>info@maxiimtech.com</p>
 </section>
 
 <footer>
   <p>© 2026 MaxiimTech Aerospace</p>
 </footer>
 
-<script src="js/script.js"></script>
+<script>
+
+/* SCROLL ANIMATION */
+const elements = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+  elements.forEach(el => {
+    const pos = el.getBoundingClientRect().top;
+    if (pos < window.innerHeight - 100) {
+      el.classList.add('show');
+    }
+  });
+});
+
+</script>
 
 </body>
 </html>
