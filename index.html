@@ -15,7 +15,54 @@ body {
   font-family: 'Inter', sans-serif;
   background: #03050a;
   color: white;
-  scroll-behavior: smooth;
+}
+
+/* FULLSCREEN BACKGROUND */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -2;
+}
+
+.bg-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.1);
+  animation: cinematic 24s infinite;
+}
+
+/* IMAGE ASSIGNMENT */
+.bg-slide:nth-child(1) { background-image: url('image.png'); animation-delay: 0s; }
+.bg-slide:nth-child(2) { background-image: url('image1.png'); animation-delay: 6s; }
+.bg-slide:nth-child(3) { background-image: url('image2.png'); animation-delay: 12s; }
+.bg-slide:nth-child(4) { background-image: url('image3.png'); animation-delay: 18s; }
+
+/* CINEMATIC ANIMATION */
+@keyframes cinematic {
+  0% { opacity: 0; transform: scale(1.15); }
+  5% { opacity: 1; }
+  25% { opacity: 1; transform: scale(1); }
+  30% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* DARK OVERLAY */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), #03050a);
+  z-index: -1;
 }
 
 /* NAVBAR */
@@ -25,9 +72,9 @@ header {
   padding: 20px 50px;
   display: flex;
   justify-content: space-between;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(12px);
-  z-index: 1000;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px);
+  z-index: 10;
 }
 
 .logo {
@@ -35,6 +82,199 @@ header {
   color: #4db3ff;
 }
 
+nav a {
+  margin-left: 25px;
+  color: #aaa;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: white;
+}
+
+/* HERO */
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 56px;
+  font-family: 'Orbitron';
+}
+
+.hero p {
+  color: #bbb;
+}
+
+.btn {
+  padding: 12px 28px;
+  background: linear-gradient(45deg,#4db3ff,#0077ff);
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* SECTION */
+.section {
+  padding: 120px 60px;
+  text-align: center;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+/* CARD */
+.card {
+  padding: 30px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+  transition: 0.4s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+/* METRICS */
+.metrics {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.metric {
+  font-size: 28px;
+  margin: 20px;
+}
+
+/* PRODUCT */
+.product {
+  background: rgba(255,255,255,0.05);
+  padding: 50px;
+  border-radius: 20px;
+}
+
+/* CTA */
+.cta {
+  background: linear-gradient(45deg,#0077ff,#4db3ff);
+  padding: 80px;
+  border-radius: 20px;
+}
+
+/* FOOTER */
+footer {
+  padding: 40px;
+  text-align: center;
+  color: #666;
+}
+
+/* SCROLL ANIMATION */
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s;
+}
+
+.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="background">
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+  <div class="bg-slide"></div>
+</div>
+
+<div class="overlay"></div>
+
+<header>
+  <div class="logo">MAXIIMTECH</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#technology">Technology</a>
+    <a href="#product">Product</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>Autonomous Aerospace Systems</h1>
+    <p>AI-driven UAV Platforms for Defense & Logistics</p>
+    <button class="btn">Explore Platform</button>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section fade">
+  <h2>About MaxiimTech</h2>
+  <p>Next-generation UAV systems powered by AI and autonomy.</p>
+</section>
+
+<!-- TECHNOLOGY -->
+<section id="technology" class="section fade">
+  <h2>Core Technology</h2>
+  <div class="grid">
+    <div class="card">Autonomous Flight Systems</div>
+    <div class="card">AI Navigation</div>
+    <div class="card">Swarm Intelligence</div>
+    <div class="card">Long Endurance Platforms</div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section id="product" class="section fade">
+  <h2>MX-1 Tactical UAV</h2>
+  <div class="product">
+    <p>High-endurance UAV platform.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section fade">
+  <h2>Contact</h2>
+  <p>ceomd@maxiimtech.com</p>
+</section>
+
+<footer>
+  <p>© 2026 MaxiimTech Aerospace</p>
+</footer>
+
+<script>
+const elements = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+  elements.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+      el.classList.add('show');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
 nav a {
   margin-left: 25px;
   text-decoration: none;
