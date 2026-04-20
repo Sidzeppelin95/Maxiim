@@ -45,15 +45,56 @@ nav a:hover {
   color: white;
 }
 
-/* HERO */
+/* HERO WITH SLIDESHOW */
 .hero {
   height: 100vh;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.8), #03050a),
-              url('images/uav-bg.jpg') center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+/* SLIDES */
+.slideshow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: fadeSlide 20s infinite;
+}
+
+/* INDIVIDUAL SLIDES */
+.slide:nth-child(1) { background-image: url('images/image.png'); animation-delay: 0s; }
+.slide:nth-child(2) { background-image: url('images/image1.png'); animation-delay: 5s; }
+.slide:nth-child(3) { background-image: url('images/image2.png'); animation-delay: 10s; }
+.slide:nth-child(4) { background-image: url('images/image4.png'); animation-delay: 15s; }
+
+/* ANIMATION */
+@keyframes fadeSlide {
+  0% { opacity: 0; }
+  5% { opacity: 1; }
+  25% { opacity: 1; }
+  30% { opacity: 0; }
+  100% { opacity: 0; }
+}
+
+/* OVERLAY CONTENT */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), #03050a);
 }
 
 .hero h1 {
@@ -133,7 +174,7 @@ footer {
   color: #666;
 }
 
-/* ANIMATION */
+/* SCROLL ANIMATION */
 .fade {
   opacity: 0;
   transform: translateY(40px);
@@ -163,20 +204,28 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <div>
-    <h1>Autonomous Aerospace Systems</h1>
-    <p>AI-driven UAV Platforms for Defense & Logistics</p>
-    <button class="btn">Explore Platform</button>
+
+  <div class="slideshow">
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
   </div>
+
+  <div class="hero-content">
+    <div>
+      <h1>Autonomous Aerospace Systems</h1>
+      <p>AI-driven UAV Platforms for Defense & Logistics</p>
+      <button class="btn">Explore Platform</button>
+    </div>
+  </div>
+
 </section>
 
 <!-- ABOUT -->
 <section id="about" class="section fade">
   <h2>About MaxiimTech</h2>
-  <p>
-    MaxiimTech is building next-generation UAV systems combining AI,
-    autonomy and advanced aerospace engineering for mission-critical applications.
-  </p>
+  <p>Next-generation UAV systems powered by AI and autonomy.</p>
 </section>
 
 <!-- TECHNOLOGY -->
@@ -194,12 +243,7 @@ footer {
 <section id="product" class="section fade">
   <h2>MX-1 Tactical UAV</h2>
   <div class="product">
-    <p>High-endurance UAV designed for surveillance and logistics missions.</p>
-    <ul>
-      <li>Endurance: 8+ hours</li>
-      <li>Range: 150 km</li>
-      <li>Payload: 10 kg</li>
-    </ul>
+    <p>High-endurance UAV platform.</p>
   </div>
 </section>
 
@@ -208,8 +252,8 @@ footer {
   <h2>Traction</h2>
   <div class="metrics">
     <div class="metric">4+ Countries</div>
-    <div class="metric">10kg Payload UAV</div>
-    <div class="metric">AI Flight Systems</div>
+    <div class="metric">10kg Payload</div>
+    <div class="metric">AI Systems</div>
   </div>
 </section>
 
@@ -217,8 +261,7 @@ footer {
 <section class="section fade">
   <div class="cta">
     <h2>Partner With MaxiimTech</h2>
-    <p>Building the future of autonomous aerospace systems.</p>
-    <button class="btn">Get in Touch</button>
+    <button class="btn">Contact</button>
   </div>
 </section>
 
@@ -233,19 +276,14 @@ footer {
 </footer>
 
 <script>
-
-/* SCROLL ANIMATION */
 const elements = document.querySelectorAll('.fade');
-
 window.addEventListener('scroll', () => {
   elements.forEach(el => {
-    const pos = el.getBoundingClientRect().top;
-    if (pos < window.innerHeight - 100) {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
       el.classList.add('show');
     }
   });
 });
-
 </script>
 
 </body>
