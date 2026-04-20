@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaxiimTech Aerospace</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Inter',sans-serif;
+  color:white;
+  overflow-x:hidden;
+}
+
+/* BACKGROUND */
+.background{
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index:-3;
+}
+
+.bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.1);
+  animation:cinematic 24s infinite;
+}
+
+.bg:nth-child(1){background:url('image.png');animation-delay:0s}
+.bg:nth-child(2){background:url('image1.png');animation-delay:6s}
+.bg:nth-child(3){background:url('image2.png');animation-delay:12s}
+.bg:nth-child(4){background:url('image3.png');animation-delay:18s}
+
+@keyframes cinematic{
+  0%{opacity:0;transform:scale(1.2)}
+  5%{opacity:1}
+  25%{opacity:1;transform:scale(1)}
+  30%{opacity:0}
+  100%{opacity:0}
+}
+
+/* BLUE OVERLAY */
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,120,255,0.4),
+    rgba(0,40,120,0.85)
+  );
+  z-index:-2;
+}
+
+/* NAVBAR */
+header{
+  position:fixed;
+  width:100%;
+  padding:20px 50px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  z-index:10;
+}
+
+.logo{
+  font-family:'Orbitron';
+  font-size:20px;
+  color:#7fd3ff;
+}
+
+nav a{
+  margin-left:30px;
+  color:#dbeeff;
+  text-decoration:none;
+  font-weight:500;
+}
+
+nav a:hover{
+  color:#ffffff;
+}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.hero h1{
+  font-size:64px;
+  font-family:'Orbitron';
+  line-height:1.2;
+}
+
+.hero p{
+  margin-top:15px;
+  color:#e0f3ff;
+  font-size:18px;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:25px;
+  padding:14px 32px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(45deg,#00c6ff,#0072ff);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 10px 25px rgba(0,150,255,0.4);
+  transition:0.3s;
+}
+
+.btn:hover{
+  transform:translateY(-3px);
+}
+
+/* SECTION */
+.section{
+  padding:120px 60px;
+  text-align:center;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+  margin-top:40px;
+}
+
+/* 3D CARD */
+.card{
+  padding:35px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.2);
+  transition:0.4s;
+  transform:perspective(1000px);
+}
+
+.card:hover{
+  transform:perspective(1000px) rotateX(8deg) translateY(-12px);
+  box-shadow:0 20px 40px rgba(0,150,255,0.3);
+}
+
+/* PRODUCT PANEL */
+.product{
+  padding:60px;
+  border-radius:25px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(15px);
+  border:1px solid rgba(255,255,255,0.2);
+}
+
+/* METRICS */
+.metrics{
+  display:flex;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  margin-top:40px;
+}
+
+.metric{
+  font-size:28px;
+  margin:20px;
+  color:#dff4ff;
+}
+
+/* FOOTER */
+footer{
+  padding:40px;
+  text-align:center;
+  color:#cfe9ff;
+}
+
+/* SCROLL ANIMATION */
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+
+.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero h1{font-size:36px}
+  .section{padding:80px 20px}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="background">
+  <div class="bg"></div>
+  <div class="bg"></div>
+  <div class="bg"></div>
+  <div class="bg"></div>
+</div>
+
+<div class="overlay"></div>
+
+<header>
+  <div class="logo">MAXIIMTECH</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Technology</a>
+    <a href="#">Product</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div>
+    <h1>Next-Gen Autonomous Aerospace</h1>
+    <p>High-performance UAV platforms powered by AI</p>
+    <button class="btn">Explore Platform</button>
+  </div>
+</section>
+
+<section class="section fade">
+  <h2>Core Technology</h2>
+  <div class="grid">
+    <div class="card">Autonomous Flight Systems</div>
+    <div class="card">AI Navigation Engine</div>
+    <div class="card">Swarm Intelligence</div>
+    <div class="card">Long-Endurance UAVs</div>
+  </div>
+</section>
+
+<section class="section fade">
+  <h2>MX-1 UAV Platform</h2>
+  <div class="product">
+    Built for endurance, intelligence, and mission-critical operations.
+  </div>
+</section>
+
+<section class="section fade">
+  <h2>Traction</h2>
+  <div class="metrics">
+    <div class="metric">4+ Countries</div>
+    <div class="metric">10kg Payload</div>
+    <div class="metric">AI Flight Systems</div>
+  </div>
+</section>
+
+<section class="section fade">
+  <h2>Contact</h2>
+  <p>ceomd@maxiimtech.com</p>
+</section>
+
+<footer>
+  © 2026 MaxiimTech Aerospace
+</footer>
+
+<script>
+const items=document.querySelectorAll('.fade');
+window.addEventListener('scroll',()=>{
+  items.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-100){
+      el.classList.add('show');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
