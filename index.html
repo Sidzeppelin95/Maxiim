@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaxiimTech Aerospace</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  color:white;
+}
+
+/* BACKGROUND (VIDEO STYLE) */
+.background{
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  z-index:-3;
+}
+.bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-size:cover;
+  background-position:center;
+  opacity:0;
+  transform:scale(1.1);
+  animation:cinematic 24s infinite;
+}
+
+/* IMAGES */
+.bg:nth-child(1){background:url('image.png');animation-delay:0s}
+.bg:nth-child(2){background:url('image1.png');animation-delay:6s}
+.bg:nth-child(3){background:url('image2.png');animation-delay:12s}
+.bg:nth-child(4){background:url('image3.png');animation-delay:18s}
+
+@keyframes cinematic{
+  0%{opacity:0;transform:scale(1.2)}
+  5%{opacity:1}
+  25%{opacity:1;transform:scale(1)}
+  30%{opacity:0}
+  100%{opacity:0}
+}
+
+/* DARK OVERLAY */
+.overlay{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:linear-gradient(to bottom, rgba(0,20,40,0.6), rgba(0,0,0,0.9));
+  z-index:-2;
+}
+
+/* NAVBAR */
+header{
+  position:fixed;
+  width:100%;
+  padding:20px 40px;
+  display:flex;
+  justify-content:space-between;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(12px);
+  z-index:10;
+}
+.logo{
+  font-family:'Orbitron';
+  color:#4db3ff;
+}
+nav a{
+  margin-left:25px;
+  color:#ddd;
+  text-decoration:none;
+}
+nav a:hover{color:#fff}
+
+/* HERO */
+.hero{
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+.hero h1{
+  font-size:60px;
+  font-family:'Orbitron';
+}
+.hero p{
+  margin-top:15px;
+  color:#ccc;
+}
+
+/* BUTTON */
+.btn{
+  margin-top:20px;
+  padding:12px 28px;
+  background:linear-gradient(45deg,#4db3ff,#0077ff);
+  border:none;
+  color:white;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+/* SECTION */
+.section{
+  padding:120px 60px;
+  text-align:center;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:30px;
+  margin-top:40px;
+}
+
+/* 3D CARD */
+.card{
+  padding:30px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+  transform:perspective(1000px) rotateX(0deg);
+  transition:0.4s;
+}
+.card:hover{
+  transform:perspective(1000px) rotateX(10deg) translateY(-10px);
+}
+
+/* PRODUCT */
+.product{
+  padding:50px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(15px);
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:40px;
+  color:#888;
+}
+
+/* SCROLL ANIMATION */
+.fade{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero h1{font-size:32px}
+  .section{padding:80px 20px}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+<div class="background">
+  <div class="bg"></div>
+  <div class="bg"></div>
+  <div class="bg"></div>
+  <div class="bg"></div>
+</div>
+
+<div class="overlay"></div>
+
+<!-- NAV -->
+<header>
+  <div class="logo">MAXIIMTECH</div>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Technology</a>
+    <a href="#">Product</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <h1>Autonomous Aerospace Systems</h1>
+    <p>AI-powered UAV Platforms for Defense & Logistics</p>
+    <button class="btn">Explore</button>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+<section class="section fade">
+  <h2>Core Technology</h2>
+  <div class="grid">
+    <div class="card">Autonomous Flight</div>
+    <div class="card">AI Navigation</div>
+    <div class="card">Swarm Intelligence</div>
+    <div class="card">Long Endurance</div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section class="section fade">
+  <h2>MX-1 UAV</h2>
+  <div class="product">
+    High-endurance UAV for surveillance & logistics.
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section fade">
+  <h2>Contact</h2>
+  <p>ceomd@maxiimtech.com</p>
+</section>
+
+<footer>
+  © 2026 MaxiimTech Aerospace
+</footer>
+
+<script>
+const items=document.querySelectorAll('.fade');
+window.addEventListener('scroll',()=>{
+  items.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight-100){
+      el.classList.add('show');
+    }
+  });
+});
+</script>
+
+</body>
+  </html>
