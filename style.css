@@ -77,8 +77,8 @@ footer {
 
 /* ICON */
 #chatbot-icon{
-  width:65px;
-  height:65px;
+  width:150px;
+  height:150px;
   border-radius:50%;
   background:linear-gradient(135deg,#00c6ff,#0072ff);
   display:flex;
@@ -88,6 +88,8 @@ footer {
   box-shadow:0 0 20px rgba(0,150,255,0.6);
   animation:pulse 2s infinite;
   transition:0.3s;
+  font-size: 30px;
+  color: white;
 }
 
 #chatbot-icon:hover{
@@ -114,7 +116,7 @@ footer {
   position:absolute;
   bottom:80px;
   right:0;
-  display:flex;
+  display:none;
   flex-direction:column;
   overflow:hidden;
   box-shadow:0 20px 60px rgba(0,0,0,0.3);
@@ -193,4 +195,10 @@ footer {
   border:none;
   padding:10px 14px;
   cursor:pointer;
+}
+#chatbot{
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  left: auto !important;
 }
