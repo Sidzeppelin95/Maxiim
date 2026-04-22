@@ -1,2 +1,2 @@
 # Maxiim
-UAV50
+Max50
