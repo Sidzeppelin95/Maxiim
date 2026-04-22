@@ -16,7 +16,7 @@ if(!icon || !chatbot){
 
 // OPEN CHAT
 icon.addEventListener("click", () => {
-  chatbot.classList.add("active");
+  document.getElementById("chatbot-panel").style.display = "flex";
 
   if(step === 0){
     bot("Hi 👋 How can I help you today?");
@@ -26,7 +26,7 @@ icon.addEventListener("click", () => {
 
 // CLOSE CHAT
 closeBtn.addEventListener("click", () => {
-  chatbot.classList.remove("active");
+  document.getElementById("chatbot-panel").style.display = "none";
 });
 
 // BOT MESSAGE
