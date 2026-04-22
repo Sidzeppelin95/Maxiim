@@ -292,30 +292,39 @@ window.addEventListener('scroll',()=>{
   });
 });
 </script>
-<!-- CHATBOT UI -->
+<!-- CHATBOT -->
 <div id="chatbot-container">
-  <div id="chatbot-button">💬</div>
 
-  <div id="chatbot-box">
-    <div id="chatbot-header">MaxiimTech Assistant</div>
-    <div id="chatbot-body"></div>
+  <!-- BOT ICON -->
+  <div id="chatbot-toggle">
+    🤖
+  </div>
+
+  <!-- CHAT WINDOW -->
+  <div id="chatbot-window">
+    <div id="chatbot-header">
+      <span>MaxiimTech AI</span>
+      <span id="chatbot-close">✕</span>
+    </div>
+
+    <div id="chatbot-messages"></div>
 
     <div id="chatbot-input-area">
-      <input type="text" id="chatbot-input" placeholder="Type here..." />
-      <button onclick="sendMessage()">Send</button>
+      <input type="text" id="chatbot-input" placeholder="Type your message..." />
+      <button onclick="sendMessage()">➤</button>
     </div>
   </div>
+
 </div>
 
-<!-- HIDDEN FORM (Formspree) -->
+<!-- HIDDEN FORMSPREE FORM -->
 <form id="hidden-form" action="https://formspree.io/f/xqewgayj" method="POST" style="display:none;">
-  <input type="text" name="name" id="form-name">
-  <input type="email" name="email" id="form-email">
-  <input type="text" name="phone" id="form-phone">
+  <input name="name" id="form-name">
+  <input name="email" id="form-email">
+  <input name="phone" id="form-phone">
   <textarea name="message" id="form-message"></textarea>
 </form>
 
-<!-- CHATBOT SCRIPT -->
 <script src="chatbot.js"></script>
 </body>
 </html>
