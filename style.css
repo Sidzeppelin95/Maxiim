@@ -67,45 +67,67 @@ footer {
   padding: 20px;
   background: #000;
 }
-/* CONTAINER */
-#chatbot-container{
+/* CHATBOT ROOT */
+#chatbot{
   position:fixed;
   bottom:20px;
   right:20px;
   z-index:9999;
 }
 
-/* BOT ICON */
-#chatbot-toggle{
-  width:60px;
-  height:60px;
-  background:linear-gradient(135deg,#00c6ff,#0072ff);
+/* ICON */
+#chatbot-icon{
+  width:65px;
+  height:65px;
   border-radius:50%;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:28px;
-  color:white;
   cursor:pointer;
-  box-shadow:0 10px 25px rgba(0,150,255,0.5);
+  box-shadow:0 0 20px rgba(0,150,255,0.6);
+  animation:pulse 2s infinite;
   transition:0.3s;
 }
 
-#chatbot-toggle:hover{
+#chatbot-icon:hover{
   transform:scale(1.1);
 }
 
-/* CHAT WINDOW */
-#chatbot-window{
-  width:320px;
-  height:420px;
+.bot-face{
+  font-size:28px;
+}
+
+/* PULSE ANIMATION */
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(0,150,255,0.7)}
+  70%{box-shadow:0 0 0 15px rgba(0,150,255,0)}
+  100%{box-shadow:0 0 0 0 rgba(0,150,255,0)}
+}
+
+/* PANEL */
+#chatbot-panel{
+  width:340px;
+  height:450px;
   background:white;
   border-radius:20px;
-  display:none;
+  position:absolute;
+  bottom:80px;
+  right:0;
+  display:flex;
   flex-direction:column;
   overflow:hidden;
-  box-shadow:0 20px 50px rgba(0,0,0,0.3);
-  margin-bottom:10px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+
+  transform:scale(0);
+  opacity:0;
+  transition:all 0.3s ease;
+}
+
+/* ACTIVE STATE */
+#chatbot.active #chatbot-panel{
+  transform:scale(1);
+  opacity:1;
 }
 
 /* HEADER */
@@ -115,7 +137,6 @@ footer {
   padding:12px;
   display:flex;
   justify-content:space-between;
-  align-items:center;
   font-weight:600;
 }
 
@@ -126,26 +147,28 @@ footer {
 /* MESSAGES */
 #chatbot-messages{
   flex:1;
-  padding:10px;
+  padding:12px;
   overflow-y:auto;
-  background:#f5faff;
+  background:#f4f9ff;
+  display:flex;
+  flex-direction:column;
 }
 
-/* CHAT BUBBLES */
-.bot-msg, .user-msg{
+/* BUBBLES */
+.msg{
   max-width:75%;
-  padding:8px 12px;
+  padding:10px;
   margin:6px 0;
-  border-radius:15px;
+  border-radius:16px;
   font-size:14px;
 }
 
-.bot-msg{
+.bot{
   background:#e3f2ff;
   align-self:flex-start;
 }
 
-.user-msg{
+.user{
   background:#0072ff;
   color:white;
   align-self:flex-end;
@@ -168,6 +191,6 @@ footer {
   background:#0072ff;
   color:white;
   border:none;
-  padding:10px;
+  padding:10px 14px;
   cursor:pointer;
 }
