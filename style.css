@@ -171,9 +171,7 @@ footer{
   right: 20px !important;
   z-index: 9999999 !important;
   font-family: 'Inter', sans-serif;
-  /* 🔥 CRITICAL FIX */
-  all: unset;
-}
+  }
 
 /* FLOATING LABEL */
 #mx-label{
