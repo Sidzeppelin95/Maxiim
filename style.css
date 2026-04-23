@@ -164,10 +164,15 @@ footer{
 
 /* ROOT (TOP LAYER ALWAYS) */
 #mx-chat-root{
-  position:fixed !important;
-  bottom:20px;
-  right:20px;
-  z-index:9999999; /* force above everything */
+  position: fixed !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  width: auto;
+  height: auto;
+  z-index: 9999999 !important;
+
+  /* 🔥 CRITICAL FIX */
+  all: unset;
 }
 
 /* FLOATING LABEL */
