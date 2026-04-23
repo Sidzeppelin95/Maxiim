@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function(){
   });
 
   icon.onclick = () => {
-    panel.style.display = "flex";
+    panel.classList.add("active");
 
     if(messages.innerHTML === ""){
       bot("<b style='color:#003366'>Hi! Welcome to MaxiimTech Aerospace.</b>");
@@ -186,6 +186,6 @@ document.addEventListener("DOMContentLoaded", function(){
     }
   };
 
-  closeBtn.onclick = () => panel.style.display = "none";
+  closeBtn.onclick = () => panel.classList.remove("active");
 
 });
