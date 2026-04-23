@@ -30,12 +30,18 @@ document.addEventListener("DOMContentLoaded", function(){
   document.body.appendChild(label);
 
   function bot(msg){
-    messages.innerHTML += `<div class="mx-bot">${msg}</div>`;
+    const bubble = document.createElement("div");
+    bubble.className = "mx-bot";
+    bubble.textContent = msg;
+    messages.appendChild(bubble);
     messages.scrollTop = messages.scrollHeight;
   }
 
   function user(msg){
-    messages.innerHTML += `<div class="mx-user">${msg}</div>`;
+    const bubble = document.createElement("div");
+    bubble.className = "mx-user";
+    bubble.textContent = msg;
+    messages.appendChild(bubble);
     messages.scrollTop = messages.scrollHeight;
   }
 
