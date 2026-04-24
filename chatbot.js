@@ -44,25 +44,29 @@ document.addEventListener("DOMContentLoaded", function(){
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function showForm(){
-    formMode = true;
+   function showForm(){
+      formMode = true;
 
-    messages.innerHTML += `
-      <div class="mx-bot">
-        Please fill out this form:
-        <div style="margin-top:10px">
-          <input id="f-name" placeholder="Name" style="width:100%;margin-bottom:6px;padding:8px"/>
-          <input id="f-email" placeholder="Email" style="width:100%;margin-bottom:6px;padding:8px"/>
-          <input id="f-phone" placeholder="Phone" style="width:100%;margin-bottom:6px;padding:8px"/>
-          <textarea id="f-msg" placeholder="Message" style="width:100%;padding:8px"></textarea>
-          <button id="f-submit" style="margin-top:8px;width:100%;background:#0072ff;color:#fff;padding:10px;border:none">Submit</button>
+      messages.innerHTML += `
+        <div class="mx-bot">
+          Please fill out this form:
+          <div style="margin-top:10px">
+            <input id="f-name" placeholder="Name" style="width:100%;margin-bottom:6px;padding:8px"/>
+            <input id="f-email" placeholder="Email" style="width:100%;margin-bottom:6px;padding:8px"/>
+            <input id="f-phone" placeholder="Phone" style="width:100%;margin-bottom:6px;padding:8px"/>
+            <textarea id="f-msg" placeholder="Message" style="width:100%;padding:8px"></textarea>
+            <button id="f-submit" style="margin-top:8px;width:100%;background:#0072ff;color:#fff;padding:10px;border:none">Submit</button>
+          </div>
         </div>
-      </div>
-    `;
+  `;
 
-    document.getElementById("f-submit").onclick = submitForm;
+      messages.scrollTop = messages.scrollHeight;
+
+  // 🔥 IMPORTANT: reset submit lock every time form opens
+      isSubmitting = false;
+
+      document.getElementById("f-submit").onclick = submitForm;
   }
-
   function validEmail(email){
     return email.includes("@") && email.includes(".");
   }
@@ -71,37 +75,70 @@ document.addEventListener("DOMContentLoaded", function(){
     return /^[0-9]+$/.test(phone);
   }
 
-  function submitForm(){
-    const email = document.getElementById("f-email").value.trim();
-    const phone = document.getElementById("f-phone").value.trim();
+  let isSubmitting = false;
 
-    if(!validEmail(email)){
-      bot("❌ Invalid email");
-      return;
-    }
+function submitForm(){
 
-    if(!validPhone(phone)){
-      bot("❌ Phone must be numbers only");
-      return;
-    }
+  if(isSubmitting) return; // 🔒 prevent double click
 
-    fetch(FORM_ENDPOINT,{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({
-        name: document.getElementById("f-name").value,
-        email,
-        phone,
-        message: document.getElementById("f-msg").value
-      })
-    })
-    .then(()=>{
-      bot("✅ Submitted successfully");
-      bot("Anything else I can help you with?");
-      formMode = false;
-      step = 1;
-    });
+  const name = document.getElementById("f-name").value.trim();
+  const email = document.getElementById("f-email").value.trim();
+  const phone = document.getElementById("f-phone").value.trim();
+  const msg = document.getElementById("f-msg").value.trim();
+  const btn = document.getElementById("f-submit");
+
+  // VALIDATION
+  if(!email.includes("@") || !email.includes(".")){
+    bot("❌ Please enter a valid email.");
+    return;
   }
+
+  if(!/^[0-9]+$/.test(phone)){
+    bot("❌ Phone must contain only numbers.");
+    return;
+  }
+
+  // LOCK BUTTON
+  isSubmitting = true;
+  btn.disabled = true;
+  btn.innerText = "Submitting...";
+
+  fetch("https://formspree.io/f/xqewgayj",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      name: name,
+      email: email,
+      phone: phone,
+      message: msg
+    })
+  })
+  .then(res => {
+    if(!res.ok) throw new Error("Failed");
+
+    bot("✅ Your message has been submitted successfully.");
+    bot("Anything else I can help you with?");
+
+    // RESET FLOW
+    formMode = false;
+    step = 1;
+
+    // OPTIONAL: clear form UI
+    document.getElementById("f-name").value = "";
+    document.getElementById("f-email").value = "";
+    document.getElementById("f-phone").value = "";
+    document.getElementById("f-msg").value = "";
+
+  })
+  .catch(()=>{
+    bot("❌ Submission failed. Please try again.");
+
+    // 🔓 unlock again if failed
+    isSubmitting = false;
+    btn.disabled = false;
+    btn.innerText = "Submit";
+  });
+}
 
   function showOptions(){
     bot(`
