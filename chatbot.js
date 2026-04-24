@@ -107,7 +107,6 @@
     panel.classList.remove("active");
   };
 
-});
 function showForm(){
   formMode = true;
 
