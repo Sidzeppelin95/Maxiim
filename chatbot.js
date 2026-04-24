@@ -53,65 +53,71 @@ document.addEventListener("DOMContentLoaded", function(){
   function validPhone(p){ return /^[0-9]+$/.test(p); }
 
   function showForm(){
-    formMode = true;
+  formMode = true;
 
-    messages.innerHTML += `
-      <div class="mx-bot">
-        <input id="f-name" placeholder="Name"><br>
-        <input id="f-email" placeholder="Email"><br>
-        <input id="f-phone" placeholder="Phone"><br>
-        <textarea id="f-msg" placeholder="Message"></textarea><br>
-        <button id="f-submit">Submit</button>
-      </div>
-    `;
+  messages.innerHTML += `
+    <div class="mx-bot">
+      <input id="f-name" placeholder="Name"><br>
+      <input id="f-email" placeholder="Email"><br>
+      <input id="f-phone" placeholder="Phone"><br>
+      <textarea id="f-msg" placeholder="Message"></textarea><br>
+      <button id="f-submit">Submit</button>
+    </div>
+  `;
 
-    const btn = document.getElementById("f-submit");
+  messages.scrollTop = messages.scrollHeight;
 
-    btn.onclick = async () => {
+  const btn = document.getElementById("f-submit");
 
-      if(isSubmitting) return;
+  btn.onclick = async () => {
 
-      const email = document.getElementById("f-email").value;
-      const phone = document.getElementById("f-phone").value;
+    // 🔒 HARD BLOCK multiple clicks
+    if(isSubmitting) return;
 
-      if(!validEmail(email)){
-        bot("❌ Invalid email");
-        return;
-      }
+    const name = document.getElementById("f-name").value.trim();
+    const email = document.getElementById("f-email").value.trim();
+    const phone = document.getElementById("f-phone").value.trim();
+    const msg = document.getElementById("f-msg").value.trim();
 
-      if(!validPhone(phone)){
-        bot("❌ Phone must be numbers only");
-        return;
-      }
+    // ✅ VALIDATION (NO LOCKING)
+    if(!email.includes("@") || !email.includes(".")){
+      bot("❌ Please enter a valid email.");
+      return;
+    }
 
-      try{
-        isSubmitting = true;
-        btn.disabled = true;
+    if(!/^[0-9]+$/.test(phone)){
+      bot("❌ Phone must contain only numbers.");
+      return;
+    }
 
-        await fetch(FORM_ENDPOINT,{
-          method:"POST",
-          headers:{ "Content-Type":"application/json" },
-          body: JSON.stringify({
-            name: document.getElementById("f-name").value,
-            email,
-            phone,
-            message: document.getElementById("f-msg").value
-          })
-        });
+    try{
+      // 🔒 LOCK ONLY AFTER VALIDATION PASSES
+      isSubmitting = true;
+      btn.disabled = true;
+      btn.innerText = "Submitting...";
 
-        bot("✅ Submitted!");
-        bot("Anything else?");
+      await fetch("https://formspree.io/f/xqewgayj",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({name,email,phone,message:msg})
+      });
 
-        formMode = false;
-        step = 1;
+      bot("✅ Message submitted successfully!");
+      bot("Anything else I can help you with?");
 
-      }catch{
-        bot("❌ Failed. Try again.");
-        isSubmitting = false;
-        btn.disabled = false;
-      }
-    };
-  }
+      formMode = false;
+      step = 1;
+
+    }catch(err){
+      bot("❌ Submission failed. Try again.");
+
+      // 🔓 UNLOCK ON FAILURE
+      isSubmitting = false;
+      btn.disabled = false;
+      btn.innerText = "Submit";
+    }
+  };
+}
 
   function showOptions(){
     messages.innerHTML += `
