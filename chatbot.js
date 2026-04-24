@@ -90,8 +90,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
   let isSubmitting = false;
 
-  let isSubmitting = false;
-
 function submitForm(){
 
   if(isSubmitting) return;
