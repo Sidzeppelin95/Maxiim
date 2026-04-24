@@ -319,3 +319,44 @@ footer{
     right:5vw;
   }
 }
+
+/* CHAT FORM INPUTS */
+.mx-input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:2px solid transparent;
+  outline:none;
+  font-size:14px;
+  background:white;
+
+  /* gradient border */
+  background-image:
+    linear-gradient(white, white),
+    linear-gradient(45deg,#00c6ff,#0072ff);
+  background-origin:border-box;
+  background-clip:padding-box, border-box;
+
+  transition:0.3s;
+}
+
+.mx-input:focus{
+  box-shadow:0 0 8px rgba(0,114,255,0.4);
+}
+
+/* SUBMIT BUTTON */
+.mx-submit{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(45deg,#00c6ff,#0072ff);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.mx-submit:hover{
+  transform:scale(1.03);
+}
