@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
   btn.onclick = async () => {
 
-    // 🔒 HARD BLOCK multiple clicks
+    // 🔒 Prevent double click ONLY during submission
     if(isSubmitting) return;
 
     const name = document.getElementById("f-name").value.trim();
@@ -79,9 +79,27 @@ document.addEventListener("DOMContentLoaded", function(){
     const phone = document.getElementById("f-phone").value.trim();
     const msg = document.getElementById("f-msg").value.trim();
 
-    // ✅ VALIDATION (NO LOCKING)
+    // ======================
+    // ✅ FIELD-BY-FIELD VALIDATION
+    // ======================
+
+    if(!name){
+      bot("❌ Please enter your name.");
+      return;
+    }
+
+    if(!email){
+      bot("❌ Email is required.");
+      return;
+    }
+
     if(!email.includes("@") || !email.includes(".")){
-      bot("❌ Please enter a valid email.");
+      bot("❌ Please enter a valid email address.");
+      return;
+    }
+
+    if(!phone){
+      bot("❌ Phone number is required.");
       return;
     }
 
@@ -90,9 +108,13 @@ document.addEventListener("DOMContentLoaded", function(){
       return;
     }
 
+    // ======================
+    // 🚀 SUBMIT ONLY AFTER VALIDATION PASSES
+    // ======================
+
     try{
-      // 🔒 LOCK ONLY AFTER VALIDATION PASSES
       isSubmitting = true;
+
       btn.disabled = true;
       btn.innerText = "Submitting...";
 
@@ -111,14 +133,13 @@ document.addEventListener("DOMContentLoaded", function(){
     }catch(err){
       bot("❌ Submission failed. Try again.");
 
-      // 🔓 UNLOCK ON FAILURE
+      // 🔓 ALWAYS UNLOCK
       isSubmitting = false;
       btn.disabled = false;
       btn.innerText = "Submit";
     }
   };
 }
-
   function showOptions(){
     messages.innerHTML += `
       <div class="mx-bot">
