@@ -55,41 +55,43 @@ document.addEventListener("DOMContentLoaded", function(){
   function showForm(){
   formMode = true;
 
+  // UNIQUE ID (prevents duplication bugs)
+  const uid = Date.now();
+
   messages.innerHTML += `
     <div class="mx-bot">
-      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
-
-        <input id="f-name" placeholder="Name" class="mx-input"/>
-        <input id="f-email" placeholder="Email" class="mx-input"/>
-        <input id="f-phone" placeholder="Phone" class="mx-input"/>
-        <textarea id="f-msg" placeholder="Message" class="mx-input" style="height:70px"></textarea>
-
-        <button id="f-submit" class="mx-submit">Submit</button>
-
+      <div class="mx-form">
+        <input id="f-name-${uid}" class="mx-field" placeholder="Name">
+        <input id="f-email-${uid}" class="mx-field" placeholder="Email">
+        <input id="f-phone-${uid}" class="mx-field" placeholder="Phone">
+        <textarea id="f-msg-${uid}" class="mx-field" placeholder="Message"></textarea>
+        <button id="f-submit-${uid}" class="mx-submit">Submit</button>
       </div>
     </div>
   `;
 
   messages.scrollTop = messages.scrollHeight;
 
-  const btn = document.getElementById("f-submit");
+  const btn = document.getElementById(`f-submit-${uid}`);
 
-  btn.onclick = async () => {
+  btn.addEventListener("click", async () => {
 
+    // 🔒 prevent double click
     if(btn.dataset.locked === "true") return;
 
-    const name = document.getElementById("f-name").value.trim();
-    const email = document.getElementById("f-email").value.trim();
-    const phone = document.getElementById("f-phone").value.trim();
-    const msg = document.getElementById("f-msg").value.trim();
+    const name = document.getElementById(`f-name-${uid}`).value.trim();
+    const email = document.getElementById(`f-email-${uid}`).value.trim();
+    const phone = document.getElementById(`f-phone-${uid}`).value.trim();
+    const msg = document.getElementById(`f-msg-${uid}`).value.trim();
 
-    // ✅ VALIDATION
-    if(!name){
+    // ================= VALIDATION =================
+
+    if(name === ""){
       bot("❌ Please enter your name.");
       return;
     }
 
-    if(!email){
+    if(email === ""){
       bot("❌ Please enter your email.");
       return;
     }
@@ -99,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function(){
       return;
     }
 
-    if(!phone){
+    if(phone === ""){
       bot("❌ Please enter your phone number.");
       return;
     }
@@ -109,37 +111,42 @@ document.addEventListener("DOMContentLoaded", function(){
       return;
     }
 
+    // ================= SUBMIT =================
+
     try{
       btn.dataset.locked = "true";
       btn.disabled = true;
       btn.innerText = "Submitting...";
 
-      await fetch("https://formspree.io/f/xqewgayj",{
+      const res = await fetch("https://formspree.io/f/xqewgayj",{
         method:"POST",
         headers:{ "Content-Type":"application/json" },
         body: JSON.stringify({name,email,phone,message:msg})
       });
 
-      // ✅ REMOVE FORM UI (fix stuck issue)
-      btn.parentElement.innerHTML = `
-        <div style="text-align:center;color:#0072ff;font-weight:600;padding:10px">
-          ✔ Submitted Successfully
-        </div>
-      `;
+      if(!res.ok){
+        throw new Error("Failed");
+      }
 
+      // ✅ REMOVE FORM UI AFTER SUCCESS
+      btn.closest(".mx-form").remove();
+
+      bot("✅ Message submitted successfully!");
       bot("Anything else I can help you with?");
 
       formMode = false;
       step = 1;
 
     }catch(err){
+
       bot("❌ Submission failed. Try again.");
 
+      // 🔓 UNLOCK properly
       btn.dataset.locked = "false";
       btn.disabled = false;
       btn.innerText = "Submit";
     }
-  };
+  });
 }
   function showOptions(){
     messages.innerHTML += `
