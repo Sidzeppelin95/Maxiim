@@ -57,11 +57,16 @@ document.addEventListener("DOMContentLoaded", function(){
 
   messages.innerHTML += `
     <div class="mx-bot">
-      <input id="f-name" placeholder="Name"><br>
-      <input id="f-email" placeholder="Email"><br>
-      <input id="f-phone" placeholder="Phone"><br>
-      <textarea id="f-msg" placeholder="Message"></textarea><br>
-      <button id="f-submit">Submit</button>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">
+
+        <input id="f-name" placeholder="Name" class="mx-input"/>
+        <input id="f-email" placeholder="Email" class="mx-input"/>
+        <input id="f-phone" placeholder="Phone" class="mx-input"/>
+        <textarea id="f-msg" placeholder="Message" class="mx-input" style="height:70px"></textarea>
+
+        <button id="f-submit" class="mx-submit">Submit</button>
+
+      </div>
     </div>
   `;
 
@@ -71,35 +76,31 @@ document.addEventListener("DOMContentLoaded", function(){
 
   btn.onclick = async () => {
 
-    // 🔒 Prevent double click ONLY during submission
-    if(isSubmitting) return;
+    if(btn.dataset.locked === "true") return;
 
     const name = document.getElementById("f-name").value.trim();
     const email = document.getElementById("f-email").value.trim();
     const phone = document.getElementById("f-phone").value.trim();
     const msg = document.getElementById("f-msg").value.trim();
 
-    // ======================
-    // ✅ FIELD-BY-FIELD VALIDATION
-    // ======================
-
+    // ✅ VALIDATION
     if(!name){
       bot("❌ Please enter your name.");
       return;
     }
 
     if(!email){
-      bot("❌ Email is required.");
+      bot("❌ Please enter your email.");
       return;
     }
 
     if(!email.includes("@") || !email.includes(".")){
-      bot("❌ Please enter a valid email address.");
+      bot("❌ Please enter a valid email.");
       return;
     }
 
     if(!phone){
-      bot("❌ Phone number is required.");
+      bot("❌ Please enter your phone number.");
       return;
     }
 
@@ -108,13 +109,8 @@ document.addEventListener("DOMContentLoaded", function(){
       return;
     }
 
-    // ======================
-    // 🚀 SUBMIT ONLY AFTER VALIDATION PASSES
-    // ======================
-
     try{
-      isSubmitting = true;
-
+      btn.dataset.locked = "true";
       btn.disabled = true;
       btn.innerText = "Submitting...";
 
@@ -124,7 +120,13 @@ document.addEventListener("DOMContentLoaded", function(){
         body: JSON.stringify({name,email,phone,message:msg})
       });
 
-      bot("✅ Message submitted successfully!");
+      // ✅ REMOVE FORM UI (fix stuck issue)
+      btn.parentElement.innerHTML = `
+        <div style="text-align:center;color:#0072ff;font-weight:600;padding:10px">
+          ✔ Submitted Successfully
+        </div>
+      `;
+
       bot("Anything else I can help you with?");
 
       formMode = false;
@@ -133,8 +135,7 @@ document.addEventListener("DOMContentLoaded", function(){
     }catch(err){
       bot("❌ Submission failed. Try again.");
 
-      // 🔓 ALWAYS UNLOCK
-      isSubmitting = false;
+      btn.dataset.locked = "false";
       btn.disabled = false;
       btn.innerText = "Submit";
     }
