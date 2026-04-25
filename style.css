@@ -131,6 +131,44 @@ nav a:hover,
   display:block;
 }
 
+.dropdown{
+  position:relative;
+}
+
+.dropdown-toggle::after{
+  content:" ▾";
+  font-size:12px;
+}
+
+.dropdown-menu{
+  position:absolute;
+  top:140%;
+  left:20px;
+  min-width:240px;
+  background:#ffffff;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  display:none;
+  padding:8px;
+}
+
+.dropdown-menu a{
+  margin:0;
+  display:block;
+  padding:9px 10px;
+  border-radius:8px;
+}
+
+.dropdown-menu a:hover{
+  background:#eaf4ff;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown:focus-within .dropdown-menu,
+.dropdown.open .dropdown-menu{
+  display:block;
+}
+
 /* HERO */
 .hero{
   height:100vh;
