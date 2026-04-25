@@ -287,6 +287,7 @@ document.addEventListener("DOMContentLoaded", function(){
     input.value = "";
 
     if(step === 0){
+      bot("Sure, please fill out this form to continue:");
       showForm(); // 🔥 no duplicate text
     } else {
       showOptions();
