@@ -63,24 +63,28 @@ document.addEventListener("DOMContentLoaded", function(){
   const send = document.getElementById("mx-send");
 
   // ================= UI HELPERS =================
-  function appendMessage(className, msg){
+  function appendTextMessage(className, msg){
     const row = document.createElement("div");
     row.className = className;
-    if(msg instanceof Node){
-      row.appendChild(msg);
-    } else {
-      row.textContent = msg;
-    }
+    row.textContent = msg;
     messages.appendChild(row);
     messages.scrollTop = messages.scrollHeight;
   }
 
   function bot(msg){
-    appendMessage("mx-bot", msg);
+    appendTextMessage("mx-bot", msg);
   }
 
   function user(msg){
-    appendMessage("mx-user", msg);
+    appendTextMessage("mx-user", msg);
+  }
+
+  function botNode(node){
+    const row = document.createElement("div");
+    row.className = "mx-bot";
+    row.appendChild(node);
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
   }
 
   // ================= FORM =================
@@ -291,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function(){
     if(messages.childElementCount === 0){
       const welcome = document.createElement("strong");
       welcome.textContent = "Hi! Welcome to MaxiimTech Aerospace";
-      appendMessage("mx-bot", welcome);
+      botNode(welcome);
       bot("How can I help you today?");
       step = 0;
     }
