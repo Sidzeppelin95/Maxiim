@@ -44,9 +44,9 @@
     </div>
     <div class="footer-contact">
       <h4>Get in Touch</h4>
-      <p>Address: 1200 Innovation Avenue, Houston, TX 77058</p>
+      <p>Address: XYZ ABC</p>
       <p>Email: ceomd@maxiimtech.com</p>
-      <p>Phone: +1 (832) 555-0190</p>
+      <p>Phone: XXXXXX0000</p>
     </div>
   </div>
 </footer>`;
