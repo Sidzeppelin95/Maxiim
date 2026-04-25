@@ -66,7 +66,11 @@ document.addEventListener("DOMContentLoaded", function(){
   function appendMessage(className, msg){
     const row = document.createElement("div");
     row.className = className;
-    row.textContent = msg;
+    if(msg instanceof Node){
+      row.appendChild(msg);
+    } else {
+      row.textContent = msg;
+    }
     messages.appendChild(row);
     messages.scrollTop = messages.scrollHeight;
   }
@@ -134,11 +138,11 @@ document.addEventListener("DOMContentLoaded", function(){
         btn.innerText = "Submit";
       } else if(state === "checking"){
         btn.dataset.locked = "true";
-        btn.disabled = false;
+        btn.disabled = true;
         btn.innerText = "Checking...";
       } else if(state === "submitting"){
         btn.dataset.locked = "true";
-        btn.disabled = false;
+        btn.disabled = true;
         btn.innerText = "Submitting...";
       } else if(state === "done"){
         btn.dataset.locked = "true";
@@ -285,7 +289,9 @@ document.addEventListener("DOMContentLoaded", function(){
     panel.classList.add("active");
 
     if(messages.childElementCount === 0){
-      bot("Hi! Welcome to MaxiimTech Aerospace");
+      const welcome = document.createElement("strong");
+      welcome.textContent = "Hi! Welcome to MaxiimTech Aerospace";
+      appendMessage("mx-bot", welcome);
       bot("How can I help you today?");
       step = 0;
     }
