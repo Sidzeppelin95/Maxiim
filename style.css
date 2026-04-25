@@ -260,7 +260,6 @@ nav a:hover,
   line-height:1.8;
   font-size:22px;
   text-align:justify;
-  text-align-last:center;
 }
 
 /* BUTTON */
@@ -284,7 +283,7 @@ nav a:hover,
 /* SECTION */
 .section{
   padding:100px 60px;
-  text-align:center;
+  text-align: justify;
   background:rgba(234,244,255,0.93);
 }
 
