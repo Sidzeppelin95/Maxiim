@@ -20,9 +20,14 @@ function initializePageInteractions() {
 
   const dropdowns = Array.from(document.querySelectorAll(".dropdown"));
 
-  const closeDropdown = (dropdown) => {
+  const closeDropdown = (dropdown, shouldFocusToggle = false) => {
     dropdown.classList.remove("open");
-    dropdown.querySelector(".dropdown-toggle")?.setAttribute("aria-expanded", "false");
+    const toggle = dropdown.querySelector(".dropdown-toggle");
+    toggle?.setAttribute("aria-expanded", "false");
+
+    if (shouldFocusToggle && toggle) {
+      toggle.focus();
+    }
   };
 
   const closeAllDropdowns = () => {
@@ -94,7 +99,8 @@ function initializePageInteractions() {
           e.preventDefault();
           focusMenuItem(items, items.length - 1);
         } else if (e.key === "Tab") {
-          closeDropdown(dropdown);
+          e.preventDefault();
+          closeDropdown(dropdown, true);
         }
       });
     });
@@ -103,7 +109,13 @@ function initializePageInteractions() {
   // Single delegated outside-click handler.
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".dropdown")) {
-      closeAllDropdowns();
+      dropdowns.forEach((dropdown) => {
+        const isOpen = dropdown.classList.contains("open");
+        if (!isOpen) return;
+
+        const activeInsideDropdown = dropdown.contains(document.activeElement);
+        closeDropdown(dropdown, activeInsideDropdown);
+      });
     }
   });
 }

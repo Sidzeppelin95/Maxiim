@@ -23,8 +23,8 @@
     <a href="technology.html">Technology</a>
     <a href="product.html">Product</a>
     <div class="dropdown">
-      <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="expertise-menu">Expertise</button>
-      <div class="dropdown-menu" id="expertise-menu" role="menu" aria-label="Expertise menu">
+      <button id="expertise-toggle" class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="expertise-menu">Expertise</button>
+      <div class="dropdown-menu" id="expertise-menu" role="menu" aria-labelledby="expertise-toggle">
         <a href="business-development.html" role="menuitem">Business Development</a>
         <a href="strategic-planning.html" role="menuitem">Strategic Planning</a>
         <a href="aviation-aerospace.html" role="menuitem">Aviation &amp; Aerospace</a>
