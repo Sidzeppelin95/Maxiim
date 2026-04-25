@@ -122,6 +122,15 @@ document.addEventListener("DOMContentLoaded", function(){
     msgInput.id = `f-msg-${uid}`;
     msgInput.className = "mx-input";
     msgInput.placeholder = "Message";
+    msgInput.rows = 3;
+    msgInput.style.minHeight = "92px";
+
+    const autoResizeMessage = () => {
+      msgInput.style.height = "auto";
+      msgInput.style.height = `${Math.max(msgInput.scrollHeight, 92)}px`;
+    };
+
+    msgInput.addEventListener("input", autoResizeMessage);
 
     const btn = document.createElement("button");
     btn.id = `f-submit-${uid}`;
