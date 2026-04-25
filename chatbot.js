@@ -122,6 +122,17 @@ document.addEventListener("DOMContentLoaded", function(){
     msgInput.id = `f-msg-${uid}`;
     msgInput.className = "mx-input";
     msgInput.placeholder = "Message";
+    msgInput.rows = 3;
+
+    const autoResizeMessage = () => {
+      const minHeightValue = window.getComputedStyle(msgInput).minHeight;
+      const minHeight = Number.parseFloat(minHeightValue) || 92;
+      msgInput.style.height = "auto";
+      msgInput.style.height = `${Math.max(msgInput.scrollHeight, minHeight)}px`;
+    };
+
+    msgInput.addEventListener("input", autoResizeMessage);
+    autoResizeMessage();
 
     const btn = document.createElement("button");
     btn.id = `f-submit-${uid}`;
@@ -276,7 +287,8 @@ document.addEventListener("DOMContentLoaded", function(){
     input.value = "";
 
     if(step === 0){
-      showForm(); // 🔥 no duplicate text
+      bot("Sure, please fill out this form to continue:");
+      showForm();
     } else {
       showOptions();
     }
