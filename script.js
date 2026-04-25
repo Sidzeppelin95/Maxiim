@@ -19,57 +19,56 @@ function initializePageInteractions() {
   });
 
   // Accessible dropdown toggle behavior.
-  document.querySelectorAll(".dropdown").forEach((dropdown) => {
+  const dropdowns = Array.from(document.querySelectorAll(".dropdown"));
+
+  const closeDropdown = (dropdown) => {
+    dropdown.classList.remove("open");
+    dropdown.querySelector(".dropdown-toggle")?.setAttribute("aria-expanded", "false");
+  };
+
+  const closeAllDropdowns = () => {
+    dropdowns.forEach(closeDropdown);
+  };
+
+  dropdowns.forEach((dropdown) => {
     const button = dropdown.querySelector(".dropdown-toggle");
     const menu = dropdown.querySelector(".dropdown-menu");
     if (!button || !menu) return;
 
-    const closeMenu = () => {
-      dropdown.classList.remove("open");
-      button.setAttribute("aria-expanded", "false");
-    };
-
-    const openMenu = () => {
-      dropdown.classList.add("open");
-      button.setAttribute("aria-expanded", "true");
-    };
-
     button.addEventListener("click", (e) => {
       e.stopPropagation();
       const isOpen = dropdown.classList.contains("open");
-      if (isOpen) {
-        closeMenu();
-      } else {
-        document.querySelectorAll(".dropdown.open").forEach((d) => {
-          d.classList.remove("open");
-          d.querySelector(".dropdown-toggle")?.setAttribute("aria-expanded", "false");
-        });
-        openMenu();
+      closeAllDropdowns();
+
+      if (!isOpen) {
+        dropdown.classList.add("open");
+        button.setAttribute("aria-expanded", "true");
       }
     });
 
     button.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
-        closeMenu();
+        closeDropdown(dropdown);
         button.focus();
       }
     });
 
     menu.querySelectorAll("a").forEach((item) => {
-      item.addEventListener("click", () => closeMenu());
+      item.addEventListener("click", () => closeDropdown(dropdown));
       item.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-          closeMenu();
+          closeDropdown(dropdown);
           button.focus();
         }
       });
     });
+  });
 
-    document.addEventListener("click", (e) => {
-      if (!dropdown.contains(e.target)) {
-        closeMenu();
-      }
-    });
+  // Single delegated outside-click handler.
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".dropdown")) {
+      closeAllDropdowns();
+    }
   });
 }
 

@@ -11,13 +11,13 @@
     <a href="product.html">Product</a>
     <div class="dropdown">
       <button class="dropdown-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="expertise-menu">Expertise</button>
-      <div class="dropdown-menu" id="expertise-menu" role="menu">
-        <a href="business-development.html" role="menuitem">Business Development</a>
-        <a href="strategic-planning.html" role="menuitem">Strategic Planning</a>
-        <a href="aviation-aerospace.html" role="menuitem">Aviation &amp; Aerospace</a>
-        <a href="process-optimisation.html" role="menuitem">Process Optimisation</a>
-        <a href="facilities-management.html" role="menuitem">Facilities Management</a>
-        <a href="hr-management.html" role="menuitem">HR Management</a>
+      <div class="dropdown-menu" id="expertise-menu">
+        <a href="business-development.html">Business Development</a>
+        <a href="strategic-planning.html">Strategic Planning</a>
+        <a href="aviation-aerospace.html">Aviation &amp; Aerospace</a>
+        <a href="process-optimisation.html">Process Optimisation</a>
+        <a href="facilities-management.html">Facilities Management</a>
+        <a href="hr-management.html">HR Management</a>
       </div>
     </div>
     <a href="contact.html">Contact Us</a>
