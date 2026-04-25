@@ -554,18 +554,14 @@ nav a:hover,
 
 .mx-form .mx-input{
   width:100%;
-  padding:10px;
+  padding:12px;
   border-radius:10px;
   border:1px solid #d0e5ff;
   outline:none;
   font-size:14px;
   font-family:inherit;
-}
-
-.mx-form textarea.mx-input{
   resize:vertical;
   min-height:var(--mx-form-min-height);
-  padding:12px;
 }
 
 .mx-form .mx-input:focus{
