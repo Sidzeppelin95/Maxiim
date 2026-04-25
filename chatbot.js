@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function(){
   const send = document.getElementById("mx-send");
 
   // ================= UI HELPERS =================
-  function appendMessage(className, msg){
+  function appendTextMessage(className, msg){
     const row = document.createElement("div");
     row.className = className;
     row.textContent = msg;
@@ -72,11 +72,19 @@ document.addEventListener("DOMContentLoaded", function(){
   }
 
   function bot(msg){
-    appendMessage("mx-bot", msg);
+    appendTextMessage("mx-bot", msg);
   }
 
   function user(msg){
-    appendMessage("mx-user", msg);
+    appendTextMessage("mx-user", msg);
+  }
+
+  function botNode(node){
+    const row = document.createElement("div");
+    row.className = "mx-bot";
+    row.appendChild(node);
+    messages.appendChild(row);
+    messages.scrollTop = messages.scrollHeight;
   }
 
   // ================= FORM =================
@@ -134,11 +142,11 @@ document.addEventListener("DOMContentLoaded", function(){
         btn.innerText = "Submit";
       } else if(state === "checking"){
         btn.dataset.locked = "true";
-        btn.disabled = false;
+        btn.disabled = true;
         btn.innerText = "Checking...";
       } else if(state === "submitting"){
         btn.dataset.locked = "true";
-        btn.disabled = false;
+        btn.disabled = true;
         btn.innerText = "Submitting...";
       } else if(state === "done"){
         btn.dataset.locked = "true";
@@ -229,7 +237,12 @@ document.addEventListener("DOMContentLoaded", function(){
     const botRow = document.createElement("div");
     botRow.className = "mx-bot";
 
-    const options = ["Investing", "Our UAV Product", "Partnerships"];
+    const optionResponses = {
+      "Investing": "Thanks for your interest in investing. Our team will share current opportunities and next steps shortly.",
+      "Our UAV Product": "Great question. Our UAV product is designed for reliable, mission-ready aerial performance across commercial and defense use cases.",
+      "Partnerships": "Awesome — we’re always open to strategic partnerships. Share your goals and our partnerships team will connect with you."
+    };
+    const options = Object.keys(optionResponses);
     options.forEach((label, idx) => {
       const el = document.createElement("span");
       el.className = "opt";
@@ -240,8 +253,9 @@ document.addEventListener("DOMContentLoaded", function(){
       el.style.cursor="pointer";
 
       el.onclick = ()=>{
-        bot("Let’s help you with that.");
-        showForm();
+        user(label);
+        bot(optionResponses[label]);
+        bot("Would you like details on another topic?");
       };
       botRow.appendChild(el);
       if(idx < options.length - 1){
@@ -279,7 +293,9 @@ document.addEventListener("DOMContentLoaded", function(){
     panel.classList.add("active");
 
     if(messages.childElementCount === 0){
-      bot("Hi! Welcome to MaxiimTech Aerospace");
+      const welcome = document.createElement("strong");
+      welcome.textContent = "Hi! Welcome to MaxiimTech Aerospace";
+      botNode(welcome);
       bot("How can I help you today?");
       step = 0;
     }
