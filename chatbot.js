@@ -77,39 +77,54 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const btn = document.getElementById(`f-submit-${uid}`);
 
-    btn.addEventListener("click", async () => {
+    const unlockSubmit = () => {
+      btn.dataset.locked = "false";
+      btn.disabled = false;
+      btn.innerText = "Submit";
+    };
 
+    btn.addEventListener("click", async () => {
       if(btn.dataset.locked === "true") return;
 
-      const name = document.getElementById(`f-name-${uid}`).value.trim();
-      const email = document.getElementById(`f-email-${uid}`).value.trim();
-      const phone = document.getElementById(`f-phone-${uid}`).value.trim();
-      const msg = document.getElementById(`f-msg-${uid}`).value.trim();
+      const nameField = document.getElementById(`f-name-${uid}`);
+      const emailField = document.getElementById(`f-email-${uid}`);
+      const phoneField = document.getElementById(`f-phone-${uid}`);
+      const msgField = document.getElementById(`f-msg-${uid}`);
+
+      const name = nameField.value.trim();
+      const email = emailField.value.trim();
+      const phone = phoneField.value.trim();
+      const msg = msgField.value.trim();
 
       // ========= VALIDATION =========
 
       if(!name){
         bot("❌ Please enter your name.");
+        unlockSubmit();
         return;
       }
 
       if(!email){
         bot("❌ Please enter your email.");
+        unlockSubmit();
         return;
       }
 
       if(!email.includes("@") || !email.includes(".")){
         bot("❌ Please enter a valid email.");
+        unlockSubmit();
         return;
       }
 
       if(!phone){
         bot("❌ Please enter your phone number.");
+        unlockSubmit();
         return;
       }
 
       if(!/^[0-9]+$/.test(phone)){
         bot("❌ Phone must contain only numbers.");
+        unlockSubmit();
         return;
       }
 
@@ -138,12 +153,8 @@ document.addEventListener("DOMContentLoaded", function(){
         step = 1;
 
       }catch(err){
-
         bot("❌ Submission failed. Try again.");
-
-        btn.dataset.locked = "false";
-        btn.disabled = false;
-        btn.innerText = "Submit";
+        unlockSubmit();
       }
     });
   }
