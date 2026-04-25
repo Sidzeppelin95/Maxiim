@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function(){
           <input id="f-email-${uid}" class="mx-input" placeholder="Email">
           <input id="f-phone-${uid}" class="mx-input" placeholder="Phone">
           <textarea id="f-msg-${uid}" class="mx-input" placeholder="Message"></textarea>
-          <button id="f-submit-${uid}" class="mx-submit">Submit</button>
+          <button id="f-submit-${uid}" class="mx-submit" type="button">Submit</button>
         </div>
       </div>
     `;
@@ -77,14 +77,22 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const btn = document.getElementById(`f-submit-${uid}`);
 
+    btn.dataset.locked = "false";
+    btn.dataset.submitted = "false";
+    btn.disabled = false;
+
     const unlockSubmit = () => {
       btn.dataset.locked = "false";
-      btn.disabled = false;
+      btn.disabled = (btn.dataset.submitted === "true");
       btn.innerText = "Submit";
     };
 
     btn.addEventListener("click", async () => {
       if(btn.dataset.locked === "true") return;
+      if(btn.dataset.submitted === "true") return;
+
+      btn.dataset.locked = "true";
+      btn.innerText = "Checking...";
 
       const nameField = document.getElementById(`f-name-${uid}`);
       const emailField = document.getElementById(`f-email-${uid}`);
@@ -131,8 +139,6 @@ document.addEventListener("DOMContentLoaded", function(){
       // ========= SUBMIT =========
 
       try{
-        btn.dataset.locked = "true";
-        btn.disabled = true;
         btn.innerText = "Submitting...";
 
         const res = await fetch(FORM_ENDPOINT,{
@@ -145,6 +151,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
         // ✅ remove form
         btn.closest(".mx-form").remove();
+        btn.dataset.submitted = "true";
+        btn.disabled = true;
 
         bot("✅ Message submitted successfully!");
         bot("Anything else I can help you with?");
