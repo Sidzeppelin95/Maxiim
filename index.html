@@ -5,28 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="MaxiimTech Aerospace develops advanced autonomous UAV systems.">
 <title>MaxiimTech Aerospace</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
-
-<header>
-  <div class="logo">MAXIIMTECH</div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="technology.html">Technology</a>
-    <a href="product.html">Product</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+<div id="site-header"></div>
 
 <section class="hero">
   <div>
     <h1>Next-Gen Autonomous Aerospace</h1>
     <p>High-performance UAV platforms powered by AI</p>
-    <button class="btn">Explore Platform</button>
+    <button class="btn" id="explore-video-btn" type="button">Explore Platform</button>
   </div>
 </section>
 
@@ -74,14 +63,22 @@
   </div>
 </section>
 
-<footer id="contact">
-  © 2026 MaxiimTech Aerospace
-</footer>
+
+<div id="video-modal" class="video-modal" aria-hidden="true">
+  <div class="video-modal-content" role="dialog" aria-modal="true" aria-label="Platform video">
+    <button id="video-close" class="video-close" type="button" aria-label="Close video">×</button>
+    <video id="platform-video" controls preload="metadata">
+      <source src="platform-video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
 
 <div id="mx-chat-root"></div>
 
-<script src="script.js?v=2"></script>
-<script src="chatbot.js?v=4"></script>
-
+<div id="site-footer"></div>
+<script src="components.js?v=1"></script>
+<script src="script.js?v=4"></script>
+<script src="chatbot.js?v=6"></script>
 </body>
 </html>
