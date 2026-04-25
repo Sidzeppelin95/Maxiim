@@ -108,6 +108,44 @@ nav a:hover{
   transform:translateY(-8px);
 }
 
+
+
+/* DROPDOWN CARDS */
+.dropdown-card{
+  width:100%;
+  text-align:left;
+}
+
+.dropdown-card summary{
+  list-style:none;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.dropdown-card summary::-webkit-details-marker{
+  display:none;
+}
+
+.dropdown-card summary::after{
+  content:"▾";
+  float:right;
+  color:#0072ff;
+}
+
+.dropdown-card[open] summary::after{
+  content:"▴";
+}
+
+.dropdown-card p{
+  margin-top:10px;
+  color:#2c4a6b;
+  line-height:1.5;
+}
+
+.product-dropdown{
+  max-width:700px;
+  margin:0 auto;
+}
 /* PRODUCT */
 .product{
   padding:50px;
