@@ -3,23 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MaxiimTech Aerospace develops advanced autonomous UAV systems.">
 <title>MaxiimTech Aerospace</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
+<link rel="stylesheet" href="style.css?v=4">
 </head>
-
 <body>
 
 <header>
   <div class="logo">MAXIIMTECH</div>
   <nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Technology</a>
-    <a href="#">Product</a>
-    <a href="#">Contact</a>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="technology.html">Technology</a>
+    <a href="product.html">Product</a>
+    <a href="contact.html">Contact</a>
   </nav>
 </header>
 
@@ -31,20 +30,38 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="technology">
   <h2>Core Technology</h2>
   <div class="grid">
-    <div class="card">Autonomous Flight Systems</div>
-    <div class="card">AI Navigation Engine</div>
-    <div class="card">Swarm Intelligence</div>
-    <div class="card">Long-Endurance UAVs</div>
+    <details class="card dropdown-card">
+      <summary>Autonomous Flight Systems</summary>
+      <p>Autonomous control loops stabilize and adapt flight paths in real time.</p>
+    </details>
+
+    <details class="card dropdown-card">
+      <summary>AI Navigation Engine</summary>
+      <p>AI-powered routing improves obstacle avoidance and mission efficiency.</p>
+    </details>
+
+    <details class="card dropdown-card">
+      <summary>Swarm Intelligence</summary>
+      <p>Coordinated swarm logic enables multiple UAVs to collaborate on one mission.</p>
+    </details>
+
+    <details class="card dropdown-card">
+      <summary>Long-Endurance UAVs</summary>
+      <p>Optimized propulsion and power systems extend flight duration.</p>
+    </details>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="product">
   <h2>MX-1 UAV Platform</h2>
   <div class="product">
-    Built for endurance, intelligence, and mission-critical operations.
+    <details class="dropdown-card product-dropdown">
+      <summary>Built for endurance, intelligence, and mission-critical operations.</summary>
+      <p>The MX-1 integrates robust avionics, AI guidance, and reliable mission performance.</p>
+    </details>
   </div>
 </section>
 
@@ -61,10 +78,10 @@
   © 2026 MaxiimTech Aerospace
 </footer>
 
-<!-- ✅ ONLY ONE CHATBOT ROOT -->
 <div id="mx-chat-root"></div>
 
-<script src="chatbot.js?v=2"></script>
+<script src="script.js?v=2"></script>
+<script src="chatbot.js?v=4"></script>
 
 </body>
 </html>

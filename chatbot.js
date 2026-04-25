@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function(){
   let formMode = false;
 
   // ================= CREATE UI =================
-  const root = document.createElement("div");
+  const root = document.getElementById("mx-chat-root") || document.createElement("div");
   root.id = "mx-chat-root";
 
   root.innerHTML = `
@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", function(){
     </div>
   `;
 
-  document.body.appendChild(root);
+  if (!root.parentElement) {
+    document.body.appendChild(root);
+  }
 
   // ================= ELEMENTS =================
   const icon = document.getElementById("mx-icon");
