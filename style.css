@@ -183,12 +183,14 @@ nav a:hover,
   font-size:60px;
   font-family:'Orbitron';
   color:#fff;
+  text-align:center;
 }
 
 .hero p{
   margin-top:15px;
   font-size:18px;
   color:#d7ebff;
+  text-align:center;
 }
 
 /* INTERIOR PAGE HERO */
