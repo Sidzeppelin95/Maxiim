@@ -287,7 +287,57 @@ nav a:hover,
   background:rgba(234,244,255,0.93);
   text-align: center;
 }
+/* ========================= */
+/* ABOUT US - EXPERIENCE SECTION */
+/* ========================= */
 
+.section.about{
+  text-align: center; /* override justify only here */
+  background:linear-gradient(135deg,#e8a7b3,#aeb7d6);
+}
+
+/* Title */
+.about .section-title{
+  font-size:34px;
+  font-weight:800;
+}
+
+/* Divider */
+.about .section-divider{
+  width:120px;
+  height:2px;
+  background:#0a2540;
+  margin:15px auto 50px;
+  opacity:0.6;
+}
+
+/* Grid */
+.about .grid{
+  margin-top:20px;
+  gap:50px 40px;
+}
+
+/* Items */
+.about .card{
+  background:transparent;
+  box-shadow:none;
+  padding:10px;
+}
+
+.about .card h3{
+  font-size:26px;
+  font-weight:500;
+  margin-bottom:10px;
+}
+
+.about .card p{
+  font-size:15px;
+  line-height:1.7;
+  max-width:300px;
+  margin:0 auto;
+  text-align:center;
+  color:#243b55;
+}
 /* GRID */
 .grid{
   display:grid;
