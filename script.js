@@ -73,3 +73,27 @@ function initializePageInteractions() {
 }
 
 document.addEventListener("DOMContentLoaded", initializePageInteractions);
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("explore-video-btn");
+  const modal = document.getElementById("video-modal");
+  const closeBtn = document.getElementById("video-close");
+  const video = document.getElementById("platform-video");
+
+  if (!btn || !modal || !closeBtn || !video) return;
+
+  // OPEN (floating, no scroll lock)
+  btn.addEventListener("click", () => {
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  });
+
+  // CLOSE (reuse existing button)
+  closeBtn.addEventListener("click", () => {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    video.pause();
+  });
+});
