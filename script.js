@@ -85,6 +85,20 @@ function initializePageInteractions() {
     return;
   }
 
+  const closeVideoModal = () => {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    video.pause();
+    document.removeEventListener("keydown", handleKeydown);
+  };
+
+  const handleKeydown = (event) => {
+    // Support both modern "Escape" and legacy "Esc" values
+    if (event.key === "Escape" || event.key === "Esc") {
+      closeVideoModal();
+    }
+  };
+
   // OPEN VIDEO
   btn.addEventListener("click", () => {
     modal.classList.add("open");
@@ -94,13 +108,13 @@ function initializePageInteractions() {
     video.play().catch(() => {
       console.warn("Autoplay blocked by browser.");
     });
+
+    document.addEventListener("keydown", handleKeydown);
   });
 
-  // CLOSE VIDEO
+  // CLOSE VIDEO (button)
   closeBtn.addEventListener("click", () => {
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden", "true");
-    video.pause();
+    closeVideoModal();
   });
 }
 
