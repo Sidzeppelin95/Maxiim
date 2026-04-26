@@ -73,3 +73,56 @@ function initializePageInteractions() {
 }
 
 document.addEventListener("DOMContentLoaded", initializePageInteractions);
+
+// ===============================
+// VIDEO MODAL (SAFE INITIALIZATION)
+// ===============================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const exploreBtn = document.getElementById("explore-video-btn");
+  const modal = document.getElementById("video-modal");
+  const closeBtn = document.getElementById("video-close");
+  const video = document.getElementById("platform-video");
+
+  // Exit safely if elements don't exist (prevents errors on other pages)
+  if (!exploreBtn || !modal || !closeBtn || !video) return;
+
+  // OPEN MODAL
+  exploreBtn.addEventListener("click", () => {
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+
+    video.currentTime = 0;
+    video.play().catch(() => {
+      // autoplay may be blocked; controls will still work
+    });
+  });
+
+  // CLOSE BUTTON
+  closeBtn.addEventListener("click", () => {
+    closeModal();
+  });
+
+  // CLICK OUTSIDE VIDEO
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // ESC KEY SUPPORT
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("open")) {
+      closeModal();
+    }
+  });
+
+  function closeModal() {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+
+    video.pause();
+  }
+});
