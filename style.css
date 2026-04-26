@@ -183,14 +183,12 @@ nav a:hover,
   font-size:60px;
   font-family:'Orbitron';
   color:#fff;
-  text-align: center;
 }
 
 .hero p{
   margin-top:15px;
   font-size:18px;
   color:#d7ebff;
-  text-align: center;
 }
 
 /* INTERIOR PAGE HERO */
@@ -287,6 +285,7 @@ nav a:hover,
   padding:100px 60px;
   text-align: justify;
   background:rgba(234,244,255,0.93);
+  text-align: center;
 }
 
 /* GRID */
@@ -313,7 +312,7 @@ nav a:hover,
 /* DROPDOWN CARDS */
 .dropdown-card{
   width:100%;
-  text-align:left;
+  text-align:justify;
 }
 
 .dropdown-card summary{
