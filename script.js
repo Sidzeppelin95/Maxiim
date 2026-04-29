@@ -70,52 +70,67 @@ function initializePageInteractions() {
       closeAllDropdowns();
     }
   });
+
+document.addEventListener("DOMContentLoaded", initializePageInteractions);
   // ===============================
-  // VIDEO OVERLAY (FLOATING PLAYER)
-  // ===============================
+// VIDEO PLAYLIST LOGIC
+// ===============================
 
-  const btn = document.getElementById("explore-video-btn");
-  const modal = document.getElementById("video-modal");
-  const closeBtn = document.getElementById("video-close");
-  const video = document.getElementById("platform-video");
+const btn = document.getElementById("explore-video-btn");
+const modal = document.getElementById("video-modal");
+const closeBtn = document.getElementById("video-close");
+const nextBtn = document.getElementById("video-next");
+const video = document.getElementById("platform-video");
 
-  // Warn instead of silently failing
-  if (!btn || !modal || !closeBtn || !video) {
-    console.warn("Video overlay not initialized: missing required elements.");
-    return;
-  }
+if (!btn) return;
 
-  const closeVideoModal = () => {
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden", "true");
-    video.pause();
-    document.removeEventListener("keydown", handleKeydown);
-  };
+if (!modal || !closeBtn || !video || !nextBtn) {
+  console.warn("Video playlist not initialized properly.");
+  return;
+}
 
-  const handleKeydown = (event) => {
-    // Support both modern "Escape" and legacy "Esc" values
-    if (event.key === "Escape" || event.key === "Esc") {
-      closeVideoModal();
-    }
-  };
+// 🎬 VIDEO LIST (ADD YOUR FILES HERE)
+const playlist = [
+  "video.mp4",
+  "video2.mp4",
+  "video3.mp4"
+];
 
-  // OPEN VIDEO
-  btn.addEventListener("click", () => {
-    modal.classList.add("open");
-    modal.setAttribute("aria-hidden", "false");
+let currentIndex = 0;
 
-    video.currentTime = 0;
-    video.play().catch(() => {
-      console.warn("Autoplay blocked by browser.");
-    });
+// LOAD VIDEO FUNCTION
+function loadVideo(index) {
+  currentIndex = index % playlist.length;
 
-    document.addEventListener("keydown", handleKeydown);
-  });
+  video.src = playlist[currentIndex];
+  video.load();
 
-  // CLOSE VIDEO (button)
-  closeBtn.addEventListener("click", () => {
-    closeVideoModal();
+  video.play().catch((err) => {
+    console.warn("Playback issue:", err);
   });
 }
 
-document.addEventListener("DOMContentLoaded", initializePageInteractions);
+// OPEN PLAYER
+btn.addEventListener("click", () => {
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+
+  loadVideo(0);
+});
+
+// NEXT BUTTON
+nextBtn.addEventListener("click", () => {
+  loadVideo(currentIndex + 1);
+});
+
+// AUTO-PLAY NEXT WHEN VIDEO ENDS
+video.addEventListener("ended", () => {
+  loadVideo(currentIndex + 1);
+});
+
+// CLOSE PLAYER
+closeBtn.addEventListener("click", () => {
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  video.pause();
+});
