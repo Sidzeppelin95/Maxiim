@@ -70,52 +70,82 @@ function initializePageInteractions() {
       closeAllDropdowns();
     }
   });
-  // ===============================
-  // VIDEO OVERLAY (FLOATING PLAYER)
-  // ===============================
-
-  const btn = document.getElementById("explore-video-btn");
-  const modal = document.getElementById("video-modal");
-  const closeBtn = document.getElementById("video-close");
-  const video = document.getElementById("platform-video");
-
-  // Warn instead of silently failing
-  if (!btn || !modal || !closeBtn || !video) {
-    console.warn("Video overlay not initialized: missing required elements.");
-    return;
-  }
-
-  const closeVideoModal = () => {
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden", "true");
-    video.pause();
-    document.removeEventListener("keydown", handleKeydown);
-  };
-
-  const handleKeydown = (event) => {
-    // Support both modern "Escape" and legacy "Esc" values
-    if (event.key === "Escape" || event.key === "Esc") {
-      closeVideoModal();
-    }
-  };
-
-  // OPEN VIDEO
-  btn.addEventListener("click", () => {
-    modal.classList.add("open");
-    modal.setAttribute("aria-hidden", "false");
-
-    video.currentTime = 0;
-    video.play().catch(() => {
-      console.warn("Autoplay blocked by browser.");
-    });
-
-    document.addEventListener("keydown", handleKeydown);
-  });
-
-  // CLOSE VIDEO (button)
-  closeBtn.addEventListener("click", () => {
-    closeVideoModal();
-  });
+ 
 }
 
 document.addEventListener("DOMContentLoaded", initializePageInteractions);
+
+// ===============================
+// VIDEO PLAYLIST (WORKING VERSION)
+// ===============================
+
+const btn = document.getElementById("explore-video-btn");
+
+if (btn) {
+  const modal = document.getElementById("video-modal");
+  const closeBtn = document.getElementById("video-close");
+  const nextBtn = document.getElementById("video-next");
+  const video = document.getElementById("platform-video");
+
+  if (!modal || !closeBtn || !video || !nextBtn) {
+    console.warn("Video elements missing.");
+  } else {
+
+    const playlist = ["video.mp4", "video1.mp4", "video2.mp4"];
+    let currentIndex = 0;
+
+    function loadVideo(index) {
+      if (!playlist.length) return;
+
+      currentIndex = ((index % playlist.length) + playlist.length) % playlist.length;
+
+      video.src = playlist[currentIndex];
+      video.load();
+
+      // IMPORTANT: play after user click (no autoplay issues)
+      video.play().catch(() => {
+        console.warn("User interaction required to play video.");
+      });
+    }
+
+    function openPlayer() {
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+
+      loadVideo(0);
+
+      document.addEventListener("keydown", handleEsc);
+    }
+
+    function closePlayer() {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+
+      video.pause();
+
+      document.removeEventListener("keydown", handleEsc);
+    }
+
+    function handleEsc(e) {
+      if (e.key === "Escape") {
+        closePlayer();
+      }
+    }
+
+    // BUTTON CLICK → guaranteed user interaction
+    btn.addEventListener("click", openPlayer);
+
+    // NEXT BUTTON
+    nextBtn.addEventListener("click", () => {
+      loadVideo(currentIndex + 1);
+    });
+
+    // AUTO NEXT
+    video.addEventListener("ended", () => {
+      loadVideo(currentIndex + 1);
+    });
+
+    // CLOSE
+    closeBtn.addEventListener("click", closePlayer);
+  }
+}
