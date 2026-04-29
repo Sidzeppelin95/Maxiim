@@ -176,12 +176,17 @@ Open Integration Architecture & Max 50 Balance  – Enable numerous sensors, SAR
   </div>
 </section>
 <div id="video-modal" class="video-modal" aria-hidden="true">
-  <div class="video-modal-content" role="dialog" aria-modal="true" aria-label="Platform video">
-    <button id="video-close" class="video-close" type="button" aria-label="Close video">×</button>
-    <video id="platform-video" controls preload="auto" muted playsinline>
-      <source src="platform-video.mp4" type="video/mp4">
-      
+  <div class="video-modal-content" role="dialog" aria-modal="true" aria-label="video">
+
+    <button id="video-close" class="video-close" type="button">×</button>
+
+    <!-- NEXT BUTTON -->
+    <button id="video-next" class="video-next" type="button">Next ▶</button>
+
+    <video id="video" controls preload="auto" muted playsinline>
+      <source src="video.mp4" type="video/mp4">
     </video>
+
   </div>
 </div>
 <div id="mx-chat-root"></div>
