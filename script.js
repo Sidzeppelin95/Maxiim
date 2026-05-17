@@ -77,13 +77,68 @@ function initializePageInteractions() {
   const btn = document.getElementById("explore-video-btn");
   const modal = document.getElementById("video-modal");
   const closeBtn = document.getElementById("video-close");
+  const nextBtn = document.getElementById("video-next");
   const video = document.getElementById("platform-video");
+  const title = document.getElementById("video-title");
+  const counter = document.getElementById("video-counter");
+  const source = video?.querySelector("source");
 
-  // Warn instead of silently failing
-  if (!btn || !modal || !closeBtn || !video) {
-    console.warn("Video overlay not initialized: missing required elements.");
+  if (!btn || !modal || !closeBtn || !nextBtn || !video || !source) {
     return;
   }
+
+  const parseVideoList = (attributeName, fallback) => {
+    try {
+      const parsed = JSON.parse(video.dataset[attributeName] || "[]");
+      return Array.isArray(parsed) && parsed.length ? parsed : fallback;
+    } catch (error) {
+      console.warn(`Invalid video ${attributeName} data.`, error);
+      return fallback;
+    }
+  };
+
+  const playlist = parseVideoList("playlist", [source.getAttribute("src")]);
+  const titles = parseVideoList("titles", playlist.map((_, index) => `Platform video ${index + 1}`));
+  let currentVideoIndex = 0;
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+
+  const updateVideoDetails = () => {
+    if (title) {
+      title.textContent = titles[currentVideoIndex] || `Platform video ${currentVideoIndex + 1}`;
+    }
+
+    if (counter) {
+      counter.textContent = `Video ${currentVideoIndex + 1} of ${playlist.length}`;
+    }
+  };
+
+  const playCurrentVideo = ({ reset = false } = {}) => {
+    const selectedVideo = playlist[currentVideoIndex];
+
+    if (source.getAttribute("src") !== selectedVideo) {
+      source.setAttribute("src", selectedVideo);
+      video.load();
+    }
+
+    if (reset) {
+      video.currentTime = 0;
+    }
+
+    updateVideoDetails();
+
+    if (modal.classList.contains("open")) {
+      video.play().catch(() => {
+        console.warn("Autoplay blocked by browser. Use the video controls to start playback.");
+      });
+    }
+  };
+
+  const playNextVideo = () => {
+    currentVideoIndex = (currentVideoIndex + 1) % playlist.length;
+    playCurrentVideo({ reset: true });
+  };
 
   const closeVideoModal = () => {
     modal.classList.remove("open");
@@ -93,29 +148,70 @@ function initializePageInteractions() {
   };
 
   const handleKeydown = (event) => {
-    // Support both modern "Escape" and legacy "Esc" values
+    if (!modal.classList.contains("open")) {
+      return;
+    }
+
     if (event.key === "Escape" || event.key === "Esc") {
       closeVideoModal();
+      btn.focus();
+      return;
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      playNextVideo();
     }
   };
 
-  // OPEN VIDEO
   btn.addEventListener("click", () => {
     modal.classList.add("open");
     modal.setAttribute("aria-hidden", "false");
-
-    video.currentTime = 0;
-    video.play().catch(() => {
-      console.warn("Autoplay blocked by browser.");
-    });
-
+    currentVideoIndex = 0;
+    playCurrentVideo({ reset: true });
     document.addEventListener("keydown", handleKeydown);
+    closeBtn.focus();
   });
 
-  // CLOSE VIDEO (button)
-  closeBtn.addEventListener("click", () => {
-    closeVideoModal();
+  closeBtn.addEventListener("click", closeVideoModal);
+  nextBtn.addEventListener("click", playNextVideo);
+  video.addEventListener("ended", playNextVideo);
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeVideoModal();
+    }
   });
+
+  modal.addEventListener("touchstart", (event) => {
+    if (event.target.closest("button") || event.target.closest("video")) {
+      return;
+    }
+
+    const [touch] = event.changedTouches;
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  modal.addEventListener("touchend", (event) => {
+    if (event.target.closest("button") || event.target.closest("video")) {
+      return;
+    }
+
+    const [touch] = event.changedTouches;
+    const xDiff = touch.clientX - touchStartX;
+    const yDiff = touch.clientY - touchStartY;
+    const elapsed = Date.now() - touchStartTime;
+    const isHorizontalSwipe = Math.abs(xDiff) > 45 && Math.abs(xDiff) > Math.abs(yDiff);
+    const isSimpleTap = Math.abs(xDiff) < 12 && Math.abs(yDiff) < 12 && elapsed < 350;
+
+    if (isHorizontalSwipe || isSimpleTap) {
+      playNextVideo();
+    }
+  }, { passive: true });
+
+  updateVideoDetails();
 }
 
 document.addEventListener("DOMContentLoaded", initializePageInteractions);

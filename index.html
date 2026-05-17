@@ -6,7 +6,7 @@
 <meta name="description" content="MaxiimTech Aerospace develops advanced autonomous UAV systems.">
 <title>MaxiimTech Aerospace</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 <div class="bg-slideshow" aria-hidden="true">
@@ -193,6 +193,24 @@ Open Integration Architecture & Max 50 Balance  – Enable numerous sensors, SAR
       ×
     </button>
 
+    <div class="video-player-header">
+      <p id="video-title" class="video-title">Platform overview</p>
+      <p id="video-counter" class="video-counter" aria-live="polite">Video 1 of 3</p>
+    </div>
+
+    <!-- VIDEO -->
+    <video
+      id="platform-video"
+      controls
+      preload="metadata"
+      playsinline
+      data-playlist='["video.mp4","video1.mp4","video2.mp4"]'
+      data-titles='["Platform overview","Flight operations","Mission capabilities"]'
+    >
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
     <!-- NEXT BUTTON -->
     <button
       id="video-next"
@@ -203,18 +221,13 @@ Open Integration Architecture & Max 50 Balance  – Enable numerous sensors, SAR
       Next ▶
     </button>
 
-    <!-- VIDEO -->
-    <video id="platform-video" controls preload="auto" playsinline>
-      <data-playlist='["video.mp4","video1.mp4","video2.mp4"] type="video/mp4">
-       </video>
-
   </div>
 </div>
 <div id="mx-chat-root"></div>
 
 <div id="site-footer"></div>
 <script src="components.js?v=1"></script>
-<script src="script.js?v=4"></script>
+<script src="script.js?v=5"></script>
 <script src="chatbot.js?v=6"></script>
 </body>
 </html>
