@@ -45,8 +45,8 @@
     <div class="footer-contact">
       <h4>Get in Touch</h4>
       <p>Address: XYZ ABC</p>
-      <p>Email: ceomd@maxiimtech.com</p>
-      <p>Phone: XXXXXX0000</p>
+      <p>Email: ceomd@maxiimtech.com / rdsharma01@gmail.com</p>
+      <p>Phone: 9654760000</p>
     </div>
   </div>
 </footer>`;
