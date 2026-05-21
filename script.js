@@ -171,7 +171,14 @@ function initializePageInteractions() {
 
       if (source.getAttribute("src") !== selectedVideo) {
         source.setAttribute("src", selectedVideo);
-        source.setAttribute("type", getVideoType(selectedVideo));
+
+        const mimeType = getVideoType(selectedVideo);
+        if (mimeType) {
+          source.setAttribute("type", mimeType);
+        } else {
+          source.removeAttribute("type");
+        }
+
         video.load();
       }
 
